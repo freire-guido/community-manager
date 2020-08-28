@@ -1,2 +1,2 @@
 # community-manager
- An Exploration into Machine Learning and Social Media GRINDING!
+Questioning the relationship between automation and socialization
