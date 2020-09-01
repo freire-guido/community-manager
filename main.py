@@ -26,13 +26,13 @@ class InstagramBot:
 		driver = self.driver
 		driver.get("https://www.instagram.com/")
 		time.sleep(2)
-		login_username = driver.find_element_by_xpath("//*[@id='loginForm']/div/div[1]/div")
+		login_username = driver.find_element_by_xpath("//*[@id='loginForm']/div/div[1]/div/label/input")
 		login_username.clear()
 		login_username.send_keys(self.username)
-		login_password = driver.find_element_by_xpath("//*[@id='loginForm']/div/div[2]/div")
+		login_password = driver.find_element_by_xpath("//*[@id='loginForm']/div/div[2]/div/label/input")
 		login_password.clear()
 		login_password.send_keys(self.password)
-		login_enter = driver.find_element_by_xpath("//*[@id='react-root']/section/main/article/div[2]/div[1]/div/form/div[4]/button/div")
+		login_enter = driver.find_element_by_xpath("//*[@id='loginForm']/div/div[3]/button")
 		login_enter.click()
 		with open('data/followed' + self.username.replace('.', '+'), 'r+') as file:
 			if not file.read(1):
@@ -183,12 +183,11 @@ class InstagramBot:
 			print(username, 'not following')
 
 if __name__ == "__main__":
-config_type = 'run'
-config = configparser.ConfigParser()
-config.read('config.ini')
-userName = config.get(config_type, 'user')
-passWord = config.get(config_type, 'pass')
-
+	config_type = 'run'
+	config = configparser.ConfigParser()
+	config.read('config.ini')
+	userName = config.get(config_type, 'user')
+	passWord = config.get(config_type, 'pass')
 rollocriollo = InstagramBot(userName, passWord)
 rollocriollo.login()
 rollocriollo.updateModel()
