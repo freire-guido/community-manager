@@ -47,8 +47,14 @@ class InstagramBot:
 
 		driver.get("https://www.instagram.com/explore/people/suggested/")
 		time.sleep(4)
-		self.driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[2]/div/div/div[{}]/div[2]/div[1]/div/span/a'.format(reset_count)).click()
+		driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[2]/div/div/div[{}]/div[2]/div[1]/div/span/a'.format(reset_count)).click()
 		time.sleep(3)
+	
+	def suggestion(self):
+		driver = self.driver
+		driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/header/div[2]/div[1]/div[1]/span/a').click()
+		time.sleep(1)
+		driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div[1]/div[2]/div/div/div/ul/li[3]/div/div/div/div/div[1]/a').click()
 
 	def evaluateFollower(self):
 		driver = self.driver
@@ -190,12 +196,12 @@ if __name__ == "__main__":
 rollocriollo = InstagramBot(userName, passWord)
 rollocriollo.login()
 rollocriollo.updateModel()
-for username in rude:
+"""for username in rude:
 	print('Looking for rude people...')
-	rollocriollo.unfollow(username)
+	rollocriollo.unfollow(username)"""
 print('Looking for potential followers...')
+rollocriollo.suggestFollower()
 while total_liked + total_followed < 360:
-	rollocriollo.suggestFollower()
 	rollocriollo.evaluateFollower()
 	reset_count += 1
 	print(user, 'has\n', 'following:', following, 'followers:', followers, 'posts:', posts, '\nreset_count:', reset_count)
@@ -203,7 +209,10 @@ while total_liked + total_followed < 360:
 		rollocriollo.patFollower()
 		with open('data/followed' + rollocriollo.username.replace('.', '+'), 'a') as file:
 						file.write(user + ',' + str(following) + ',' + str(followers) + ',' + str(posts) + ',' + str(private) + '\n')
+		rollocriollo.suggestion()
 		reset_count -= 1
+	else:
+		rollocriollo.suggestFollower()
 	if reset_count > 10:
 		reset_count = 1
 else:
