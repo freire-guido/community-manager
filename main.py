@@ -106,7 +106,7 @@ class InstagramBot:
 		driver.find_element_by_xpath('//div[@class="eLAPa"]').click()
 		time.sleep(4)
 		for i in range(posts):
-			driver.find_element_by_xpath('//*[@aria-label="Me gusta"]').click()
+			driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button').click()
 			try:
 				driver.find_element_by_xpath('//*[text()="Siguiente"]').click()
 			except NoSuchElementException:
@@ -174,7 +174,6 @@ class InstagramBot:
 		driver.get('https://instagram.com/' + username + '/')
 		time.sleep(2)
 		try:
-			driver.find_element_by_xpath('//*[text()="Enviar mensaje"]')
 			driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/div[1]/div[2]/span/span[1]/button').click()
 			time.sleep(1)
 			driver.find_element_by_xpath('//*[text()="Dejar de seguir"]').click()
@@ -205,7 +204,7 @@ while total_liked + total_followed < 360:
 		with open('data/followed' + rollocriollo.username.replace('.', '+'), 'a') as file:
 						file.write(user + ',' + str(following) + ',' + str(followers) + ',' + str(posts) + ',' + str(private) + '\n')
 		reset_count -= 1
-	if reset_count > 6:
+	if reset_count > 10:
 		reset_count = 1
 else:
 	print('Session finished with', total_followed,'followed and', total_liked, 'liked')
